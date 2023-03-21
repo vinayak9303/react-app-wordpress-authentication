@@ -10,18 +10,18 @@ export default function Login() {
 	let navigate = useNavigate();
 	const HandleLogin = (e) => {
 		e.preventDefault();
-		const options = {
-			headers: {
-			  "Access-Control-Allow-Origin": "*",
-			  "Content-Type": "application/json",
-			},
-		  };
+		// const options = {
+		// 	headers: {
+		// 	  "Access-Control-Allow-Origin": "*",
+		// 	  "Content-Type": "application/json",
+		// 	},
+		//   };
 		const loginData = {
 			username: username,
 			password: password
 		};
 		axios
-			.post('https://www.insaid.co/wp-json/jwt-auth/v1/token', loginData,options)
+			.post('https://www.insaid.co/wp-json/jwt-auth/v1/token', loginData)
 			.then((res) => {
 				// console.log(res.data);
 				// document.cookie = `wp-login=${res.data.token}; path=/`;
@@ -29,13 +29,13 @@ export default function Login() {
 				Cookies.set('wp-login', `${res.data.token}`, {
 					expires: 30, // Expires in 30 days
 					path: '/',
-					domain: 'https://www.insaid.co/', // Replace with your domain name
+					domain: 'insaid.co', // Replace with your domain name
 					secure: true,
 					sameSite: 'none'
 				  });
 				  console.log(Cookies.get('wp-login')) ;
 				// Redirect to the home page
-				window.location.href = 'https://www.insaid.co/cookies-check.php';
+				window.location.href = 'https://insaid.co/cookies-check.php';
 				localStorage.setItem('token', res.data.token);
 				localStorage.setItem('user_nicename', res.data.user_nicename);
 				localStorage.setItem('user_email', res.data.user_email);
